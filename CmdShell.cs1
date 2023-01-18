@@ -1,0 +1,8 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.128.0
+using Lestaly;
+
+// ShellExecute で実行
+{
+    await CmdShell.ExecAsync("https://github.com/toras9000/LestalySamples");
+}

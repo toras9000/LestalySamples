@@ -1,0 +1,12 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.128.0
+using Lestaly;
+
+{
+    var embeder = new EmbedStringBuilder();
+    embeder.Variables["sha"] = "e5e3f590d64ed05b802ec7de79fc67f87105fc2e";
+    embeder.Variables["date"] = $"{DateTime.Now:yyyyMMdd-HHmmss}";
+
+    Console.WriteLine(embeder.Build("SHA=${sha}/DATE=${date}"));
+    Console.WriteLine(embeder.Build("DATE: $date - $sha"));
+}

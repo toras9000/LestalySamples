@@ -1,0 +1,20 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.128.0
+#:package Kokuban@0.2.0
+using Kokuban;
+using Lestaly;
+
+// 例外を補足する補助メソッド。スクリプトが終了してしまわないようにして表示するのが主な目的。
+return await Paved.ProceedAsync(async () =>
+{
+    // 例外を送出するような任意の処理。
+    await Task.CompletedTask;
+    Console.Write("Command:");
+    var input = Console.ReadLine().Unquote().CancelIfWhite();
+    switch (input.ToLowerInvariant())
+    {
+        case "error": throw new PavedMessageException("!!error message!!");
+        case "cancel": throw new OperationCanceledException();
+        default: Console.WriteLine(Chalk.Yellow["no op."]); break;
+    }
+});

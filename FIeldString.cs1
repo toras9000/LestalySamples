@@ -1,0 +1,18 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.128.0
+using System.Globalization;
+using Lestaly;
+
+var builder = FixedFieldBuilder.Create(CultureInfo.GetCultures(CultureTypes.SpecificCultures));
+builder.AddColumn(c => c.Name);
+builder.AddColumn(c => "  ");
+builder.AddColumn(c => c.EnglishName);
+builder.AddColumn(c => "  ");
+builder.AddColumn(c => c.NativeName);
+var fields = builder.Build();
+
+Console.WriteLine(fields.CaptionLine());
+foreach (var line in fields)
+{
+    Console.WriteLine(line);
+}

@@ -1,0 +1,15 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.128.0
+using Lestaly;
+
+return await Paved.ProceedAsync(async () =>
+{
+    await Task.CompletedTask;
+    var text = "abc,def,,ghi,jkl";
+    var scan = text.AsSpan();
+    while (!scan.IsEmpty)
+    {
+        var token = scan.TakeSkipToken(out scan, ',');
+        Console.WriteLine($"Token '{token}', Rest '{scan}'");
+    }
+});
