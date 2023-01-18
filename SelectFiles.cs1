@@ -1,0 +1,25 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.139.0
+using Lestaly;
+
+return await Paved.ProceedAsync(async () =>
+{
+    await Task.CompletedTask;
+
+    using var signal = new SignalCancellationPeriod();
+
+    Console.WriteLine("Search Directory");
+    Console.Write(">");
+    var searchDir = Console.ReadLine().Unquote().CancelIfWhite().AsDirectoryInfo();
+
+    var options = new VisitFilesOptions(
+        Recurse: true,
+        Handling: VisitFilesHandling.OnlyFile,
+        SkipInaccessible: true,
+        DirectoryFilter: dir => !dir.Name.RoughAny([".git", ".hg"])
+    );
+    foreach (var path in searchDir.SelectFiles(c => c.File?.RelativePathFrom(searchDir), options))
+    {
+        Console.WriteLine(path);
+    }
+});

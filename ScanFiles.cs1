@@ -1,0 +1,27 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.139.0
+using System.Text.RegularExpressions;
+using Lestaly;
+
+return await Paved.ProceedAsync(async () =>
+{
+    await Task.CompletedTask;
+
+    using var signal = new SignalCancellationPeriod();
+
+    var extensions = new[] { "cs", "cs1" };
+    var skipDir = new Regex(@"(?:^\.git|^\.svn|^\.hg|^obj$|^bin$)");
+
+    Console.WriteLine("Search Info");
+    Console.WriteLine($"  Extensions: {extensions.JoinString(", ")}");
+    Console.WriteLine($"  SkipDir: {skipDir}");
+
+    Console.WriteLine("Search Directory");
+    Console.Write(">");
+    var searchDir = Console.ReadLine().Unquote().CancelIfWhite().AsDirectoryInfo();
+
+    foreach (var path in searchDir.ScanFiles(extensions, skipDir: dir => skipDir.IsMatch(dir.Name)))
+    {
+        Console.WriteLine(path);
+    }
+});

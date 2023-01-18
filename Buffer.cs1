@@ -1,0 +1,23 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.139.0
+using System.Buffers;
+using Lestaly;
+using Lestaly.Extensions;
+
+return await Paved.ProceedAsync(async () =>
+{
+    var randomer = Random.Shared;
+
+    using var buffer = new PoolArrayBufferConsumer<byte>();
+
+    buffer.Write(randomer.GetBytes(256));
+
+    while (4 <= buffer.WrittenCount)
+    {
+        var mode = randomer.Next(3);
+        if (mode == 0) Console.WriteLine($"0x{buffer.ConsumeLittleEndian<byte>():X2}");
+        else if (mode == 1) Console.WriteLine($"0x{buffer.ConsumeLittleEndian<ushort>():X4}");
+        else Console.WriteLine($"0x{buffer.ConsumeLittleEndian<uint>():X8}");
+    }
+
+});

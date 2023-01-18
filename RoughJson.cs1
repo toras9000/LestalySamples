@@ -1,0 +1,37 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.139.0
+#:property PublishAot=false
+using Lestaly;
+
+// スクリプトに直接書きたくない情報をスクランブルして保存しておくようなもの。
+// セキュリティ上の意味は薄いので注意。ただ平文を避けたいというだけのもの。
+
+return await Paved.ProceedAsync(async () =>
+{
+    var workFile = ThisSource.RelativeFile("work/rough.json");
+
+    await workFile.WithDirectoryCreate().WriteAllTextAsync("""
+    {
+        // Allow Comments
+        "Number": 100,
+        // Converters
+        "File": "c:\\temp\\test.txt",
+        "Directory": "c:\\temp",
+        // Allow Number Convert
+        "RoughNum": "123",
+        // Allow Trailing Comma
+        "Text": "abc",
+    }
+    """);
+
+    var data = await workFile.ReadRoughJsonAsync<Data>() ?? throw new Exception();
+    Console.WriteLine($"Load data");
+    Console.WriteLine($"  Number    = {data.Number}");
+    Console.WriteLine($"  File      = {data.File}");
+    Console.WriteLine($"  Directory = {data.Directory}");
+    Console.WriteLine($"  RoughNum  = {data.RoughNum}");
+    Console.WriteLine($"  Text      = {data.Text}");
+
+});
+
+record Data(int Number, FileInfo File, DirectoryInfo Directory, int RoughNum, string Text);

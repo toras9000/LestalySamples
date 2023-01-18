@@ -1,0 +1,23 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.139.0
+#:package Lestaly.Excel@0.104.0
+using Lestaly;
+
+// IEnumerable なデータをExcelファイルに保存する。
+// 保存データの形は任意の型。保存オプションで動作を指定。
+
+var data = new Item[]
+{
+    new(new("http://localhost:1000"), new([1, 3, 5,])),
+    new(new("http://localhost:2000"), new([])),
+    new(new("http://localhost:3000"), new([10, ])),
+};
+
+var options = new SaveToExcelOptions();
+options.Sheet = "Options";
+options.AutoLink = true;
+options.UseColumnAttribute = true;
+options.ColumnSpanSelector = m => m.Name == nameof(Item.Values) ? 5 : 1;
+data.SaveToExcel(ThisSource.RelativeFile("./SaveToExcel_Options.xlsx"), options);
+
+record Item([property: ExcelTypeColumn(Caption = "Address")] Uri URL, ExcelExpand Values);
