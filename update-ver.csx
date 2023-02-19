@@ -1,5 +1,5 @@
 #nullable enable
-#r "nuget: Lestaly, 0.27.0"
+#r "nuget: Lestaly, 0.31.0"
 using System.Text.RegularExpressions;
 using Lestaly;
 
@@ -15,7 +15,7 @@ var settings = new
     // Packages and versions to be unified and updated
     Packages = new PackageVersion[]
     {
-        new("Lestaly",                "0.27.0"),
+        new("Lestaly",                "0.31.0"),
     },
 };
 

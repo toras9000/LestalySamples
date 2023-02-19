@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.27.0"
+#r "nuget: Lestaly, 0.31.0"
 using Lestaly;
 
 var data = new[]
@@ -8,4 +8,4 @@ var data = new[]
     new { Name = "Ghi", Number = new ExcelStyle(300, ForeColor: "Red", Extra: new(Bold: true)), Link = new ExcelHyperlink("http://localhost:3000", "Site3"), },
 };
 
-data.SaveToExcel(ThisSource.GetRelativeFile("./SaveToExcel_SpecialData.xlsx"));
+data.SaveToExcel(ThisSource.RelativeFile("./SaveToExcel_SpecialData.xlsx"));

@@ -1,7 +1,7 @@
-#r "nuget: Lestaly, 0.27.0"
+#r "nuget: Lestaly, 0.31.0"
 using Lestaly;
 
-var outFile = ThisSource.GetRelativeFile($"SaveToExcel_Simple_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
+var outFile = ThisSource.RelativeFile($"SaveToExcel_Simple_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
 var searchDir = new DirectoryInfo(ConsoleWig.ReadLine("Search Directory\n>"));
 searchDir.SelectFiles(c => new
     {

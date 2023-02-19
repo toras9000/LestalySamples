@@ -1,9 +1,9 @@
-#r "nuget: Lestaly, 0.27.0"
+#r "nuget: Lestaly, 0.31.0"
 using Lestaly;
 
 record Token(string Text, DateTime Time);
 
-var storeFile = ThisSource.GetRelativeFile("RoughScrambler.bin");
+var storeFile = ThisSource.RelativeFile("RoughScrambler.bin");
 
 var scrambler = new RoughScrambler();
 var restored = await scrambler.DescrambleObjectFromFileAsync<Token>(storeFile);
