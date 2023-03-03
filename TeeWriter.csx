@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.31.0"
+#r "nuget: Lestaly, 0.32.0"
 using Lestaly;
 
 return await Paved.RunAsync(configuration: o => o.AnyPause(), action: async () =>

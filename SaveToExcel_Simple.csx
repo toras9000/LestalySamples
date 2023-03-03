@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.31.0"
+#r "nuget: Lestaly, 0.32.0"
 using Lestaly;
 
 var outFile = ThisSource.RelativeFile($"SaveToExcel_Simple_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
