@@ -1,4 +1,5 @@
 #r "nuget: Lestaly, 0.48.0"
+#nullable enable
 using Lestaly;
 
 Console.WriteLine("現在のソースファイルを基準とした情報取得");

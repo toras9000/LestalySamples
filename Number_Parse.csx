@@ -1,4 +1,5 @@
 #r "nuget: Lestaly, 0.48.0"
+#nullable enable
 using Lestaly;
 
 Console.WriteLine($"TryParseHex : 0x1234   => (uint) {"0x1234".TryParseHex<uint>()}");

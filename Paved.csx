@@ -1,4 +1,5 @@
 #r "nuget: Lestaly, 0.48.0"
+#nullable enable
 using Lestaly;
 
 // 例外を補足する補助メソッド。スクリプトが終了してしまわないようにして表示するのが主な目的。

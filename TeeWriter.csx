@@ -1,4 +1,5 @@
 #r "nuget: Lestaly, 0.48.0"
+#nullable enable
 using Lestaly;
 
 return await Paved.RunAsync(config: o => o.AnyPause(), action: async () =>

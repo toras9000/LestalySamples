@@ -1,4 +1,5 @@
 #r "nuget: Lestaly, 0.48.0"
+#nullable enable
 using Lestaly;
 
 // IEnumerable なデータをCSVファイルに保存する。
@@ -9,8 +10,8 @@ var searchDir = new DirectoryInfo(ConsoleWig.Write("Search Directory\n>").ReadLi
 await searchDir
     .SelectFiles(c => new
     {
-        Path = c.File.RelativePathFrom(searchDir, ignoreCase: true),
-        Size = c.File.Length.ToHumanize(),
-        Time = c.File.LastWriteTime,
+        Path = c.File?.RelativePathFrom(searchDir, ignoreCase: true),
+        Size = c.File?.Length.ToHumanize(),
+        Time = c.File?.LastWriteTime,
     })
     .SaveToCsvAsync(outFile);

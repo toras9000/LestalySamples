@@ -1,4 +1,5 @@
 #r "nuget: Lestaly, 0.48.0"
+#nullable enable
 using System.Net.Http;
 using Lestaly;
 
@@ -23,5 +24,5 @@ var client = new HttpClient();
 var reqs = addrs.ToParallelAsync(parallels: 3, async a => await client.GetAsync(a));
 await foreach (var req in reqs)
 {
-    Console.WriteLine($"{req.RequestMessage.RequestUri} -> {req.StatusCode}");
+    Console.WriteLine($"{req.RequestMessage?.RequestUri} -> {req.StatusCode}");
 }

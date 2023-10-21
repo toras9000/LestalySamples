@@ -1,5 +1,6 @@
 #nullable enable
 #r "nuget: Lestaly, 0.48.0"
+#nullable enable
 using System.Text.RegularExpressions;
 using Lestaly;
 

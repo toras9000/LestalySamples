@@ -1,4 +1,5 @@
 #r "nuget: Lestaly, 0.48.0"
+#nullable enable
 using Lestaly;
 
 // スクリプトに直接書きたくない情報をスクランブルして保存しておくようなもの。
