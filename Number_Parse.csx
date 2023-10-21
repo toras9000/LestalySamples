@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.47.0"
+#r "nuget: Lestaly, 0.48.0"
 using Lestaly;
 
 Console.WriteLine($"TryParseHex : 0x1234   => (uint) {"0x1234".TryParseHex<uint>()}");

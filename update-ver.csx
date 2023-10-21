@@ -1,5 +1,5 @@
 #nullable enable
-#r "nuget: Lestaly, 0.47.0"
+#r "nuget: Lestaly, 0.48.0"
 using System.Text.RegularExpressions;
 using Lestaly;
 
@@ -14,7 +14,7 @@ var settings = new
     // 更新するパッケージ名とバージョン
     Packages = new PackageVersion[]
     {
-        new("Lestaly",                "0.47.0"),
+        new("Lestaly",                "0.48.0"),
     },
 };
 

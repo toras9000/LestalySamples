@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.47.0"
+#r "nuget: Lestaly, 0.48.0"
 using Lestaly;
 
 // スクリプトに直接書きたくない情報をスクランブルして保存しておくようなもの。
