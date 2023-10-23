@@ -1,5 +1,5 @@
 #r "nuget: System.Text.Encoding.CodePages, 7.0.0"
-#r "nuget: Lestaly, 0.48.0"
+#r "nuget: Lestaly, 0.50.0"
 #nullable enable
 using System.Threading;
 using Lestaly;
@@ -126,6 +126,14 @@ Console.WriteLine();
 Console.WriteLine(">>Sample environment");
 {
     await "cmd /C echo test-%ENV1%-%ENV2%".env("ENV1", "aaa").env("ENV2", "bbb");
+}
+Console.WriteLine();
+
+// 作業ディレクトリを指定
+Console.WriteLine(">>Sample workdir");
+{
+    var cd = await "cmd /C echo %CD%".workdir(ThisSource.RelativeDirectory("test"));
+    Console.WriteLine($"Print:{cd.Output}");
 }
 Console.WriteLine();
 
