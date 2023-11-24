@@ -1,5 +1,5 @@
-#r "nuget: System.Text.Encoding.CodePages, 7.0.0"
-#r "nuget: Lestaly, 0.50.0"
+#r "nuget: System.Text.Encoding.CodePages, 8.0.0"
+#r "nuget: Lestaly, 0.51.0"
 #nullable enable
 using System.Threading;
 using Lestaly;
