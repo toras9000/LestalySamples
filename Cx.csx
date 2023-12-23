@@ -1,6 +1,7 @@
 #r "nuget: System.Text.Encoding.CodePages, 8.0.0"
 #r "nuget: Lestaly, 0.53.0"
 #nullable enable
+using System.Runtime.InteropServices;
 using System.Threading;
 using Lestaly;
 using Lestaly.Cx;
@@ -109,7 +110,21 @@ Console.WriteLine(">>Sample input redirect");
 {
     var reader = new StringReader("input-test");
     var output = await "cmd /V:ON /C set /P TESTIN= & echo !TESTIN!".input(reader).result().output();
-    Console.WriteLine($"Input:{output}");
+    Console.WriteLine($"Input-echo:{output}");
+}
+Console.WriteLine();
+
+// 入力リダイレクト元を指定(文字列で)。
+Console.WriteLine(">>Sample input redirect");
+{
+    var input = """
+    The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down,
+    so suddenly that Alice had not a moment to think about stopping herself
+    before she found herself falling down a very deep well. 
+    """;
+    var cmd = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "findstr" : "grep";
+    var output = await cmd.args("moment").input(input).silent().result().output();
+    Console.WriteLine($"Output:{output}");
 }
 Console.WriteLine();
 
@@ -159,15 +174,14 @@ try
 {
     var file = ThisSource.RelativeFile("test/Cx-combine.txt").WithDirectoryCreate();
     using var canceller = new CancellationTokenSource(3000);
-    using (var writer = file.CreateTextWriter())
-    {
-        var jpenc = CodePagesEncodingProvider.Instance.GetEncoding("Shift_JIS")!;
-        await "cmd /C ping %TARGETHOST%"
-            .encoding(jpenc)
-            .env("TARGETHOST", "localhost")
-            .redirect(writer)
-            .killby(canceller.Token);
-    }
+    using var writer = file.CreateTextWriter();
+
+    var jpenc = CodePagesEncodingProvider.Instance.GetEncoding("Shift_JIS")!;
+    await "cmd /C ping %TARGETHOST%"
+        .encoding(jpenc)
+        .env("TARGETHOST", "localhost")
+        .redirect(writer)
+        .killby(canceller.Token);
 }
 catch (CmdProcCancelException)
 {

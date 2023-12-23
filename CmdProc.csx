@@ -3,6 +3,8 @@
 using System.Threading;
 using Lestaly;
 
+// これと同じ事は Lestaly.Cx 名前空間でできるので直接使う必要はあまりないかもしれない。
+
 // コマンド呼び出し
 {
     (var code, var output) = await CmdProc.RunAsync("curl", new[] { "http://localhost", });
