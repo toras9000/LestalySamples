@@ -1,5 +1,5 @@
 #r "nuget: Kokuban, 0.2.0"
-#r "nuget: Lestaly, 0.57.0"
+#r "nuget: Lestaly, 0.62.0"
 #nullable enable
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
@@ -18,8 +18,8 @@ var settings = new
     // Packages and versions to be unified and updated
     Packages = new PackageVersion[]
     {
-        new("Lestaly",                          "0.57.0"),
-        new("Kokuban",                          "0.2.00"),
+        new("Lestaly",                          "0.62.0"),
+        new("Kokuban",                          "0.2.0"),
         new("System.Text.Encoding.CodePages",   "8.0.0"),
     },
 };
