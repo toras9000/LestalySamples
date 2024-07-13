@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.62.0"
+#r "nuget: Lestaly, 0.65.0"
 #nullable enable
 using System.ComponentModel.DataAnnotations;
 using Lestaly;
