@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.74.0"
+#r "nuget: Lestaly, 0.79.0"
 #nullable enable
 using Lestaly;
 
@@ -8,7 +8,7 @@ using Lestaly;
 // 任意のデータ型
 record Token(string Text, DateTime Time);
 
-return await Paved.RunAsync(config: o => o.AnyPause(), action: async () =>
+return await Paved.ProceedAsync(async () =>
 {
     // 保存先ファイルと紐づけて任意のデータに適当なスクランブルをかけて保存するクラス
     // デフォルトではこの(呼び出し元の)スクリプトファイルパスをスクランブル時のキーに使う。

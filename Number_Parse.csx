@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.74.0"
+#r "nuget: Lestaly, 0.79.0"
 #nullable enable
 using Lestaly;
 
@@ -23,3 +23,7 @@ Console.WriteLine($"TryParseNumberWithPrefix :   123 => {"123".TryParseNumberWit
 Console.WriteLine($"TryParseNumberWithPrefix : 0x123 => {"0x123".TryParseNumberWithPrefix<uint>()}");
 Console.WriteLine($"TryParseNumberWithPrefix :   110 => {"110".TryParseNumberWithPrefix<uint>()}");
 Console.WriteLine($"TryParseNumberWithPrefix : 0b110 => {"0b110".TryParseNumberWithPrefix<uint>()}");
+Console.WriteLine();
+Console.WriteLine($"TryParseHumanized :  123K      => {"123K".TryParseHumanized()}");
+Console.WriteLine($"TryParseHumanized :  123M      => {"123M".TryParseHumanized()}");
+Console.WriteLine($"TryParseHumanized :  123M (si) => {"123M".TryParseHumanized(si: true)}");

@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.74.0"
+#r "nuget: Lestaly, 0.79.0"
 #nullable enable
 using System.Threading;
 using Lestaly;
@@ -7,34 +7,34 @@ using (var canceller = new CancellationTokenSource(15 * 1000))
 {
     try
     {
-        ConsoleWig.Write("行を入力するか15秒経過すると次へ進む。\ninput1: ");
+        Console.Write("行を入力するか15秒経過すると次へ進む。\ninput1: ");
         var input = await ConsoleWig.InReader.ReadLineAsync(canceller.Token);
-        ConsoleWig.WriteLine($"Echo: {input}");
+        Console.WriteLine($"Echo: {input}");
     }
     catch (OperationCanceledException)
     {
-        ConsoleWig.WriteLine("cancelled");
+        Console.WriteLine("cancelled");
     }
 }
 
 Console.WriteLine();
 
-using (var signal = ConsoleWig.CreateCancelKeyHandlePeriod())
+using (var signal = new SignalCancellationPeriod())
 {
     try
     {
-        ConsoleWig.Write("行を入力するかCtrl+Cを押下すると次へ進む。\ninput2: ");
+        Console.Write("行を入力するかCtrl+Cを押下すると次へ進む。\ninput2: ");
         var input = await ConsoleWig.InReader.ReadLineAsync(signal.Token);
         if (input == null)
         {
             input = "null";
-            ConsoleWig.WriteLine();
+            Console.WriteLine();
         }
-        ConsoleWig.WriteLine($"Echo: {input}");
+        Console.WriteLine($"Echo: {input}");
     }
     catch (OperationCanceledException)
     {
-        ConsoleWig.WriteLine("cancelled");
+        Console.WriteLine("cancelled");
     }
 }
 

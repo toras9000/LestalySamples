@@ -1,5 +1,5 @@
 #r "nuget: System.Text.Encoding.CodePages, 9.0.4"
-#r "nuget: Lestaly, 0.74.0"
+#r "nuget: Lestaly, 0.79.0"
 #nullable enable
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -50,6 +50,16 @@ using Lestaly.Cx;
     // 元の文字列はコマンド本体とみなす。(スペース区切りの引数などは指定不可)
     WriteLine(">>Sample args");
     await "cmd".args("/C", "echo", "%HOMEPATH%");
+    WriteLine();
+}
+
+// FileInfo などを引数に指定する
+{
+    // args() に FileInfo/DirectoryInfo を指定した場合はそのフルパスと解釈する。
+    // あと echo() で呼び出しコマンドラインをエコーする。
+    WriteLine(">>Sample args file");
+    var file = ThisSource.RelativeFile(".gitignore");
+    await "cmd".args("/C", "type", file).echo();
     WriteLine();
 }
 

@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.74.0"
+#r "nuget: Lestaly, 0.79.0"
 #nullable enable
 using Lestaly;
 
@@ -6,11 +6,11 @@ using Lestaly;
 // 保存データの形は任意の型。以下では匿名型を利用。
 
 var outFile = ThisSource.RelativeFile($"SaveToCsv_Simple_{DateTime.Now:yyyyMMdd_HHmmss}.csv");
-var searchDir = new DirectoryInfo(ConsoleWig.Write("Search Directory\n>").ReadLine());
+var searchDir = new DirectoryInfo(ConsoleWig.Write("Search Directory\n>").ReadLine().Unquote());
 await searchDir
     .SelectFiles(c => new
     {
-        Path = c.File?.RelativePathFrom(searchDir, ignoreCase: true),
+        Path = c.File?.RelativePathFrom(searchDir),
         Size = c.File?.Length.ToHumanize(),
         Time = c.File?.LastWriteTime,
     })

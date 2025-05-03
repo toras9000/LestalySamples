@@ -1,8 +1,8 @@
-#r "nuget: Lestaly, 0.74.0"
+#r "nuget: Lestaly, 0.79.0"
 #nullable enable
 using Lestaly;
 
-return await Paved.RunAsync(config: o => o.AnyPause(), action: async () =>
+return await Paved.ProceedAsync(async () =>
 {
     // 複数の TextWriter に同じ内容を出力する TeeWriter
     using var tee = new TeeWriter();

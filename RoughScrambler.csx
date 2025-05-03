@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.74.0"
+#r "nuget: Lestaly, 0.79.0"
 #nullable enable
 using Lestaly;
 
@@ -8,7 +8,7 @@ using Lestaly;
 // 任意のデータ型
 record Token(string Text, DateTime Time);
 
-return await Paved.RunAsync(config: o => o.AnyPause(), action: async () =>
+return await Paved.ProceedAsync(async () =>
 {
     // 保存先ファイル
     var storeFile = ThisSource.RelativeFile("RoughScrambler.bin");
@@ -23,7 +23,8 @@ return await Paved.RunAsync(config: o => o.AnyPause(), action: async () =>
     {
         // 情報復元されなかった。
         // 保存するテキストを入力させて、データに詰めてスクランブル保存する。
-        var input = ConsoleWig.Write("Input Text:").ReadLine().CancelIfEmpty();
+        Console.Write("Input Text:");
+        var input = Console.ReadLine().CancelIfEmpty();
         var token = new Token(input, DateTime.Now);
         await scrambler.ScrambleObjectToFileAsync(storeFile, token);
         Console.WriteLine("Saved.");
