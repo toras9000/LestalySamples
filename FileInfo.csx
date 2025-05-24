@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.81.0"
+#r "nuget: Lestaly, 0.82.0"
 #nullable enable
 using Lestaly;
 
@@ -6,27 +6,27 @@ record TestData(string Text, double Value);
 
 var testDir = CurrentDir.RelativeDirectory("test").WithCreate();
 
-Console.WriteLine("オブジェクトをJSONファイルへ(型指定)");
+WriteLine("オブジェクトをJSONファイルへ(型指定)");
 {
     var testJson = testDir.RelativeFile("a.json");
     await testJson.WriteJsonAsync(new TestData("AAA", 1.25));
     var load = await testJson.ReadJsonAsync<TestData>() ?? throw new Exception("cannot read");
-    Console.WriteLine($"load: Text={load.Text}, Value={load.Value}");
-    Console.WriteLine();
+    WriteLine($"load: Text={load.Text}, Value={load.Value}");
+    WriteLine();
 }
 
-Console.WriteLine("オブジェクトをJSONファイルへ(匿名型)");
+WriteLine("オブジェクトをJSONファイルへ(匿名型)");
 {
     var testJson = testDir.RelativeFile("b.json");
     var data = new { id = 1, name = "abc", args = new { time = DateTime.Now, numbers = new int[] { 1, 2, 3, 5, 7, }, }, };
     await testJson.WriteJsonAsync(data);
     var tmpl = new { id = default(int), name = default(string), args = new { time = default(DateTime), numbers = default(int[]), }, };
     var load = await testJson.ReadJsonByTemplateAsync(tmpl) ?? throw new Exception("cannot read");
-    Console.WriteLine($"load: Text={load.id}, Value={load.name}, arg.time={load.args.time}");
-    Console.WriteLine();
+    WriteLine($"load: Text={load.id}, Value={load.name}, arg.time={load.args.time}");
+    WriteLine();
 }
 
-Console.WriteLine("改行コードを正規化して保存");
+WriteLine("改行コードを正規化して保存");
 {
     var testText = testDir.RelativeFile("c.txt");
     testText.WriteMultilineText(['\r'], """

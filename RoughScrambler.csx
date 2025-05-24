@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.81.0"
+#r "nuget: Lestaly, 0.82.0"
 #nullable enable
 using Lestaly;
 
@@ -23,15 +23,15 @@ return await Paved.ProceedAsync(async () =>
     {
         // 情報復元されなかった。
         // 保存するテキストを入力させて、データに詰めてスクランブル保存する。
-        Console.Write("Input Text:");
-        var input = Console.ReadLine().CancelIfEmpty();
+        Write("Input Text:");
+        var input = ReadLine().CancelIfEmpty();
         var token = new Token(input, DateTime.Now);
         await scrambler.ScrambleObjectToFileAsync(storeFile, token);
-        Console.WriteLine("Saved.");
+        WriteLine("Saved.");
     }
     else
     {
         // 保存されていた情報を表示
-        Console.WriteLine($"Restored: '{restored.Text}' ({restored.Time})");
+        WriteLine($"Restored: '{restored.Text}' ({restored.Time})");
     }
 });

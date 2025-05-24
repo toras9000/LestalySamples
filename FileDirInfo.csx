@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.81.0"
+#r "nuget: Lestaly, 0.82.0"
 #nullable enable
 using Lestaly;
 
@@ -27,6 +27,18 @@ using Lestaly;
     WriteLine("相対パス取得");
     var relPath = moreRelFile.RelativePathFrom(CurrentDir.RelativeDirectory("."), ignoreCase: true);
     WriteLine($"Relative Path: {relPath}");
+    WriteLine();
+}
+
+{
+    WriteLine("特殊ディレクトリ");
+    var profileDir = SpecialFolder.UserProfile();
+    WriteLine($"Profile Dir: {profileDir.FullName}");
+    WriteLine();
+
+    WriteLine("大文字小文字区別せず");
+    var pkgCacheDir = profileDir.FindPathDirectory([".nuget", "packages", "Lestaly"], MatchCasing.CaseInsensitive);
+    WriteLine($"Found Dir: {pkgCacheDir?.FullName}");
     WriteLine();
 }
 
