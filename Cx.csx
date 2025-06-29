@@ -1,5 +1,5 @@
-#r "nuget: System.Text.Encoding.CodePages, 9.0.5"
-#r "nuget: Lestaly, 0.84.0"
+#r "nuget: System.Text.Encoding.CodePages, 9.0.6"
+#r "nuget: Lestaly, 0.100.0"
 #nullable enable
 using System.Runtime.InteropServices;
 using System.Threading;

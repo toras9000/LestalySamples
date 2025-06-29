@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.84.0"
+#r "nuget: Lestaly, 0.100.0"
 #nullable enable
 using Lestaly;
 
@@ -9,7 +9,7 @@ return await Paved.ProceedAsync(async () =>
     var scan = text.AsSpan();
     while (!scan.IsEmpty)
     {
-        var token = scan.TakeSkipFirstToken(out scan, ',');
+        var token = scan.TakeSkipToken(out scan, ',');
         WriteLine($"Token '{token}'");
     }
 });
