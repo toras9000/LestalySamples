@@ -1,4 +1,4 @@
-#r "nuget: Lestaly, 0.100.0"
+#r "nuget: Lestaly.General, 0.104.0"
 #nullable enable
 using System.Threading;
 using Lestaly;
@@ -14,5 +14,5 @@ using Lestaly;
 {
     var canceller = new CancellationTokenSource();
     canceller.CancelAfter(TimeSpan.FromSeconds(10));
-    await CmdProc.ExecAsync("ping", new[] { "localhost", }, stdOut: Console.Out, cancelToken: canceller.Token);
+    await CmdProc.ExecAsync("ping", ["localhost"], stdOut: Console.Out, cancelToken: canceller.Token);
 }
