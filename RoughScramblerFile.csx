@@ -21,7 +21,7 @@ return await Paved.ProceedAsync(async () =>
         // 情報復元されなかった。
         // 保存するテキストを入力させて、データに詰めてスクランブル保存する。
         Write("Input Text");
-        var input = ReadLine().CancelIfEmpty();
+        var input = ReadLine().CancelIfWhite().Unquote().CancelIfWhite();
         var token = new Token(input, DateTime.Now);
         await scrambler.ScrambleObjectAsync(token);
         WriteLine("Saved.");

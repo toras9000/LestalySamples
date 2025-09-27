@@ -6,7 +6,9 @@ using Lestaly;
 // 保存データの形は任意の型。以下では匿名型を利用。
 
 var outFile = ThisSource.RelativeFile($"SaveToCsv_Simple_{DateTime.Now:yyyyMMdd_HHmmss}.csv");
-var searchDir = new DirectoryInfo(ConsoleWig.Write("Search Directory\n>").ReadLine().Unquote());
+WriteLine("Search Directory");
+Write(">");
+var searchDir = ReadLine().CancelIfWhite().Unquote().CancelIfWhite().AsDirectoryInfo();
 await searchDir
     .SelectFiles(c => new
     {

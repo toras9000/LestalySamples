@@ -14,5 +14,5 @@ return await Paved.ProceedAsync(async () =>
     using var signal = new SignalCancellationPeriod();
     using var canceller = CancellationTokenSource.CreateLinkedTokenSource(signal.Token);
     canceller.CancelAfter(TimeSpan.FromSeconds(10));
-    await CmdProc.ExecAsync("ping", new[] { "localhost", }, stdOut: tee, cancelToken: canceller.Token);
+    await CmdProc.ExecAsync("ping", ["localhost"], stdOut: tee, cancelToken: canceller.Token);
 });

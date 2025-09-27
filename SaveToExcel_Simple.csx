@@ -7,7 +7,9 @@ using Lestaly;
 // 保存データの形は任意の型。以下では匿名型を利用。
 
 var outFile = ThisSource.RelativeFile($"SaveToExcel_Simple_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
-var searchDir = new DirectoryInfo(ConsoleWig.Write("Search Directory\n>").ReadLine().Unquote());
+WriteLine("Search Directory");
+Write(">");
+var searchDir = ReadLine().CancelIfWhite().Unquote().CancelIfWhite().AsDirectoryInfo();
 searchDir
     .SelectFiles(c => new
     {

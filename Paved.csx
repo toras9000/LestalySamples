@@ -9,8 +9,8 @@ return await Paved.ProceedAsync(async () =>
 {
     // 例外を送出するような任意の処理。
     await Task.CompletedTask;
-    Console.Write("Command:");
-    var input = Console.ReadLine().CancelIfWhite();
+    Write("Command:");
+    var input = ReadLine().CancelIfWhite().Unquote().CancelIfWhite();
     switch (input.ToLowerInvariant())
     {
         case "error": throw new PavedMessageException("!!error message!!");
