@@ -1,6 +1,5 @@
-#r "nuget: Lestaly.General, 0.112.0"
-#nullable enable
-using System.Net.Http;
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
 using Lestaly;
 
 // IEnumerable の要素を並列に処理する IAsyncEnumerable に変換する ToParallelAsync() メソッド。
@@ -8,5 +7,5 @@ using Lestaly;
 var numbers = Enumerable.Range(0, 10).Select(n => (idx: n, time: Random.Shared.Next(500))).ToArray();
 await foreach (var num in numbers.ToParallelAsync(parallels: 4, ordered: true, async n => { await Task.Delay(n.time); return n; }))
 {
-    WriteLine($"[{num.idx}] Time {num.time} ms");
+    Console.WriteLine($"[{num.idx}] Time {num.time} ms");
 }

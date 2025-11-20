@@ -1,5 +1,5 @@
-#r "nuget: Lestaly.General, 0.112.0"
-#nullable enable
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
 using Lestaly;
 
 return await Paved.ProceedAsync(async () =>
@@ -10,6 +10,6 @@ return await Paved.ProceedAsync(async () =>
     while (!scan.IsEmpty)
     {
         var token = scan.TakeSkipToken(out scan, ',');
-        WriteLine($"Token '{token}'");
+        Console.WriteLine($"Token '{token}'");
     }
 });

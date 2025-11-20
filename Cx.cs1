@@ -1,8 +1,7 @@
-#r "nuget: System.Text.Encoding.CodePages, 10.0.0"
-#r "nuget: Lestaly.General, 0.112.0"
-#nullable enable
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
 using System.Runtime.InteropServices;
-using System.Threading;
+using System.Text;
 using Lestaly;
 using Lestaly.Cx;
 
@@ -14,18 +13,18 @@ using Lestaly.Cx;
     // コマンドライン文字列に対して await することで外部コマンド呼び出し。
     // スペースがあればそれ以降を引数とみなす。
     // 標準出力と標準エラーは現在のコンソールにも出力。
-    WriteLine(">>Sample normal");
+    Console.WriteLine(">>Sample normal");
     var output = await "cmd /c echo abc";
-    WriteLine($"output text: {output}");
-    WriteLine();
+    Console.WriteLine($"output text: {output}");
+    Console.WriteLine();
 }
 
 // 上記のシンプルな呼び出しは、後で紹介の以下と等価。
 {
-    WriteLine(">>Sample normal (2)");
+    Console.WriteLine(">>Sample normal (2)");
     var output = await "cmd /c echo abc".result().success(0).output();
-    WriteLine($"output text: {output}");
-    WriteLine();
+    Console.WriteLine($"output text: {output}");
+    Console.WriteLine();
 }
 
 // シンプル呼び出しは終了コードを検証する。
@@ -33,72 +32,72 @@ using Lestaly.Cx;
     // 終了コードがゼロ以外だと例外を送出する。
     try
     {
-        WriteLine(">>Sample exit code");
+        Console.WriteLine(">>Sample exit code");
         await "cmd /c exit 1";
-        WriteLine("exit code is zero");
+        Console.WriteLine("exit code is zero");
     }
     catch
     {
-        WriteLine("exit code is not zero");
+        Console.WriteLine("exit code is not zero");
     }
-    WriteLine();
+    Console.WriteLine();
 }
 
 // 引数を別に指定する
 {
     // args() で引数リストを指定。個々のパラメータが必要に応じてクォートされる。
     // 元の文字列はコマンド本体とみなす。(スペース区切りの引数などは指定不可)
-    WriteLine(">>Sample args");
+    Console.WriteLine(">>Sample args");
     await "cmd".args("/C", "echo", "%HOMEPATH%");
-    WriteLine();
+    Console.WriteLine();
 }
 
 // FileInfo などを引数に指定する
 {
     // args() に FileInfo/DirectoryInfo を指定した場合はそのフルパスと解釈する。
     // あと echo() で呼び出しコマンドラインをエコーする。
-    WriteLine(">>Sample args file");
+    Console.WriteLine(">>Sample args file");
     var file = ThisSource.RelativeFile(".gitignore");
     await "cmd".args("/C", "type", file).echo();
-    WriteLine();
+    Console.WriteLine();
 }
 
 // 単に実行して結果を得る。
 {
     // 終了コードに関わらず例外は送出しない。
-    WriteLine(">>Sample exec result");
+    Console.WriteLine(">>Sample exec result");
     var result = await "cmd /c exit 1".result();
-    WriteLine($"result code: {result.ExitCode}");
-    WriteLine($"result output: {result.Output}");
+    Console.WriteLine($"result code: {result.ExitCode}");
+    Console.WriteLine($"result output: {result.Output}");
 
     // 追加で結果のコード/出力の必要な方を取得するメソッド。
     var code = await "cmd /c exit 1".result().code();
     var output = await "cmd /c exit 1".result().output();
-    WriteLine();
+    Console.WriteLine();
 }
 
 // 明示的に正常な終了コード指定。
 {
     // 正常とみなす終了コードを指定して、それ以外の場合は例外にする。
-    WriteLine(">>Sample exit code (specify)");
+    Console.WriteLine(">>Sample exit code (specify)");
     var result = await "cmd /c exit 1".success(0, 1, 2);
-    WriteLine($"result code: {result.ExitCode}");
-    WriteLine();
+    Console.WriteLine($"result code: {result.ExitCode}");
+    Console.WriteLine();
 }
 
 // コンソール出力無しとする指定。
 {
     // 現在のコンソールをアタッチしない
-    WriteLine(">>Sample silent");
+    Console.WriteLine(">>Sample silent");
     var result = await "cmd /c echo AAA".silent();
-    WriteLine($"(no console output)");
-    WriteLine($"(result output is '{result.Output}')");
-    WriteLine();
+    Console.WriteLine($"(no console output)");
+    Console.WriteLine($"(result output is '{result.Output}')");
+    Console.WriteLine();
 }
 
 // 出力リダイレクト先を指定。
 {
-    WriteLine(">>Sample output redirect");
+    Console.WriteLine(">>Sample output redirect");
     var file = ThisSource.RelativeFile("test/Cx-out-redirect.txt").WithDirectoryCreate();
     var output1 = "";
     var output2 = "";
@@ -107,26 +106,26 @@ using Lestaly.Cx;
         output1 = await "cmd /c echo AAA".redirect(writer).result().output();
         output2 = await "cmd /c echo BBB".redirect(writer).result().output();
     }
-    WriteLine("RedirectFile:");
-    WriteLine(await file.ReadAllTextAsync());
-    WriteLine("OutputText:");
-    Write(output1);
-    Write(output2);
-    WriteLine();
+    Console.WriteLine("RedirectFile:");
+    Console.WriteLine(await file.ReadAllTextAsync());
+    Console.WriteLine("OutputText:");
+    Console.Write(output1);
+    Console.Write(output2);
+    Console.WriteLine();
 }
 
 // 入力リダイレクト元を指定。
 {
-    WriteLine(">>Sample input redirect");
+    Console.WriteLine(">>Sample input redirect");
     var reader = new StringReader("input-test");
     var output = await "cmd /V:ON /C set /P TESTIN= & echo !TESTIN!".input(reader).result().output();
-    WriteLine($"Input-echo:{output}");
-    WriteLine();
+    Console.WriteLine($"Input-echo:{output}");
+    Console.WriteLine();
 }
 
 // 入力リダイレクト元を指定(文字列で)。
 {
-    WriteLine(">>Sample input redirect");
+    Console.WriteLine(">>Sample input redirect");
     var input = """
     The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down,
     so suddenly that Alice had not a moment to think about stopping herself
@@ -134,37 +133,37 @@ using Lestaly.Cx;
     """;
     var cmd = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "findstr" : "grep";
     var output = await cmd.args("moment").input(input).silent().result().output();
-    WriteLine($"Output:{output}");
-    WriteLine();
+    Console.WriteLine($"Output:{output}");
+    Console.WriteLine();
 }
 
 // 入出力エンコーディングを指定。
 {
-    WriteLine(">>Sample encoding");
+    Console.WriteLine(">>Sample encoding");
     await "cmd /C echo 日本語";
     var jpenc = CodePagesEncodingProvider.Instance.GetEncoding("Shift_JIS")!;
     await "cmd /C echo 日本語".encoding(jpenc);
-    WriteLine();
+    Console.WriteLine();
 }
 
 // 環境変数を指定
 {
-    WriteLine(">>Sample environment");
+    Console.WriteLine(">>Sample environment");
     await "cmd /C echo test-%ENV1%-%ENV2%".env("ENV1", "aaa").env("ENV2", "bbb");
-    WriteLine();
+    Console.WriteLine();
 }
 
 // 作業ディレクトリを指定
 {
-    WriteLine(">>Sample workdir");
+    Console.WriteLine(">>Sample workdir");
     var cd = await "cmd /C echo %CD%".workdir(ThisSource.RelativeDirectory("test"));
-    WriteLine($"Print:{cd.Output}");
-    WriteLine();
+    Console.WriteLine($"Print:{cd.Output}");
+    Console.WriteLine();
 }
 
 // 中止トークンを指定
 {
-    WriteLine(">>Sample cancel");
+    Console.WriteLine(">>Sample cancel");
     try
     {
         using var canceller = new CancellationTokenSource();
@@ -175,14 +174,14 @@ using Lestaly.Cx;
     }
     catch (CmdProcCancelException)
     {
-        WriteLine($"Cancelled");
+        Console.WriteLine($"Cancelled");
     }
-    WriteLine();
+    Console.WriteLine();
 }
 
 // 組み合わせて指定
 {
-    WriteLine(">>Sample environment");
+    Console.WriteLine(">>Sample environment");
     try
     {
         var file = ThisSource.RelativeFile("test/Cx-combine.txt").WithDirectoryCreate();
@@ -198,9 +197,9 @@ using Lestaly.Cx;
     }
     catch (CmdProcCancelException)
     {
-        WriteLine($"Cancelled");
+        Console.WriteLine($"Cancelled");
     }
-    WriteLine();
+    Console.WriteLine();
 }
 
 

@@ -1,6 +1,5 @@
-#r "nuget: Lestaly.General, 0.112.0"
-#nullable enable
-using System.Net.Http;
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
 using Lestaly;
 
 // IEnumerable の要素を並列に処理する IAsyncEnumerable に変換する ToParallelAsync() メソッド。
@@ -24,5 +23,5 @@ var client = new HttpClient();
 var reqs = addrs.ToParallelAsync(parallels: 3, async a => await client.GetAsync(a));
 await foreach (var req in reqs)
 {
-    WriteLine($"{req.RequestMessage?.RequestUri} -> {req.StatusCode}");
+    Console.WriteLine($"{req.RequestMessage?.RequestUri} -> {req.StatusCode}");
 }

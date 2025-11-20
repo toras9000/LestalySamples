@@ -1,13 +1,11 @@
-#r "nuget: Lestaly.General, 0.112.0"
-#r "nuget: Lestaly.Excel, 0.101.0"
-#nullable enable
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
+#:package Lestaly.Excel@0.101.0
 using System.ComponentModel.DataAnnotations;
 using Lestaly;
 
 // IEnumerable なデータをExcelファイルに保存する。
 // 保存データの形は任意の型。保存オプションで動作を指定。
-
-record Item([Display(Name = "Address")] Uri URL, ExcelExpand Values);
 
 var data = new Item[]
 {
@@ -23,3 +21,5 @@ options.AutoLink = true;
 options.UseCaptionAttribute = true;
 options.ColumnSpanSelector = m => m.Name == nameof(Item.Values) ? 5 : 1;
 data.SaveToExcel(ThisSource.RelativeFile("./SaveToExcel_Options.xlsx"), options);
+
+record Item([Display(Name = "Address")] Uri URL, ExcelExpand Values);

@@ -1,6 +1,5 @@
-#r "nuget: Lestaly.General, 0.112.0"
-#nullable enable
-using System.Threading;
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
 using Lestaly;
 
 // ShellExecute で実行

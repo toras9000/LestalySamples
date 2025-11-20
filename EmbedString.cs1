@@ -1,5 +1,5 @@
-#r "nuget: Lestaly.General, 0.112.0"
-#nullable enable
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
 using Lestaly;
 
 {
@@ -7,6 +7,6 @@ using Lestaly;
     embeder.Variables["sha"] = "e5e3f590d64ed05b802ec7de79fc67f87105fc2e";
     embeder.Variables["date"] = $"{DateTime.Now:yyyyMMdd-HHmmss}";
 
-    WriteLine(embeder.Build("SHA=${sha}/DATE=${date}"));
-    WriteLine(embeder.Build("DATE: $date - $sha"));
+    Console.WriteLine(embeder.Build("SHA=${sha}/DATE=${date}"));
+    Console.WriteLine(embeder.Build("DATE: $date - $sha"));
 }

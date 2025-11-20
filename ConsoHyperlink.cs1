@@ -1,0 +1,12 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
+using Lestaly;
+
+Console.WriteLine($"- {Poster.Link["https://github.com/toras9000/Lestaly", "Lestaly"]}");
+Console.WriteLine($"- {Poster.Link["https://github.com/toras9000/LestalySamples", "LestalySamples"]}");
+Console.WriteLine();
+if (!Console.IsInputRedirected)
+{
+    Console.WriteLine("(press any key to exit)");
+    Console.ReadKey(intercept: true);
+}

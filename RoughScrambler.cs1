@@ -1,12 +1,10 @@
-#r "nuget: Lestaly.General, 0.112.0"
-#nullable enable
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.112.0
+#:property JsonSerializerIsReflectionEnabledByDefault=true
 using Lestaly;
 
 // スクリプトに直接書きたくない情報をスクランブルして保存しておくようなもの。
 // セキュリティ上の意味は薄いので注意。ただ平文を避けたいというだけのもの。
-
-// 任意のデータ型
-record Token(string Text, DateTime Time);
 
 return await Paved.ProceedAsync(async () =>
 {
@@ -23,15 +21,18 @@ return await Paved.ProceedAsync(async () =>
     {
         // 情報復元されなかった。
         // 保存するテキストを入力させて、データに詰めてスクランブル保存する。
-        Write("Input Text:");
-        var input = ReadLine().CancelIfWhite().Unquote().CancelIfWhite();
+        Console.Write("Input Text:");
+        var input = Console.ReadLine().CancelIfWhite().Unquote().CancelIfWhite();
         var token = new Token(input, DateTime.Now);
         await scrambler.ScrambleObjectToFileAsync(storeFile, token);
-        WriteLine("Saved.");
+        Console.WriteLine("Saved.");
     }
     else
     {
         // 保存されていた情報を表示
-        WriteLine($"Restored: '{restored.Text}' ({restored.Time})");
+        Console.WriteLine($"Restored: '{restored.Text}' ({restored.Time})");
     }
 });
+
+// 任意のデータ型
+record Token(string Text, DateTime Time);
