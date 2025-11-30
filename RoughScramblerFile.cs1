@@ -1,5 +1,5 @@
 #!/usr/bin/env -S dotnet run --file
-#:package Lestaly.General@0.112.0
+#:package Lestaly.General@0.114.0
 #:property JsonSerializerIsReflectionEnabledByDefault=true
 using Lestaly;
 

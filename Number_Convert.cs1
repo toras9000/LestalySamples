@@ -1,5 +1,5 @@
 #!/usr/bin/env -S dotnet run --file
-#:package Lestaly.General@0.112.0
+#:package Lestaly.General@0.114.0
 using Lestaly;
 
 Console.WriteLine($"ToHumanize : 1024 => {1024.ToHumanize(si: false)}");

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S dotnet run --file
-#:package Lestaly.General@0.112.0
+#:package Lestaly.General@0.114.0
 using Lestaly;
 
 // IEnumerable の要素を並列に処理する IAsyncEnumerable に変換する ToParallelAsync() メソッド。

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S dotnet run --file
-#:package Lestaly.General@0.112.0
+#:package Lestaly.General@0.114.0
 using Lestaly;
 
 // これと同じ事は Lestaly.Cx 名前空間でできるので直接使う必要はあまりないかもしれない。
