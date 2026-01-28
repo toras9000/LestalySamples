@@ -1,0 +1,68 @@
+#!/usr/bin/env -S dotnet run --file
+#:package Lestaly.General@0.116.0
+using Lestaly;
+
+Console.WriteLine($"Random Pick:");
+{
+    var items = Enumerable.Range(0, 20).ToArray();
+    Console.WriteLine($"  Souce: {items.Select(n => $"{n}").JoinString(",")}");
+    for (var i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"  Pick: {Random.Shared.Pick(items)}");
+    }
+    Console.WriteLine();
+}
+
+Console.WriteLine($"Random PickItems:");
+{
+    var items = Enumerable.Range(0, 20).ToArray();
+    Console.WriteLine($"  Souce: {items.Select(n => $"{n}").JoinString(",")}");
+    for (var i = 0; i < 5; i++)
+    {
+        Console.WriteLine($"  PickItems: {Random.Shared.PickItems(items, 5).Select(n => $"{n}").JoinString(",")}");
+    }
+    Console.WriteLine();
+}
+
+Console.WriteLine($"Random RemoveItems:");
+{
+    var items = Enumerable.Range(0, 20).ToList();
+    Console.WriteLine($"  Souce: {items.Select(n => $"{n}").JoinString(",")}");
+    var removed = Random.Shared.RemoveItems(items, 8);
+    Console.WriteLine($"  Removed: {removed.Select(n => $"{n}").JoinString(",")}");
+    Console.WriteLine($"  Rest   : {items.Select(n => $"{n}").JoinString(",")}");
+    Console.WriteLine();
+}
+
+Console.WriteLine($"Random PassRate:");
+{
+    var items = Enumerable.Range(0, 20).ToArray();
+    Console.WriteLine($"  Souce: {items.Select(n => $"{n}").JoinString(",")}");
+    var rate = 0.4d;
+    Console.WriteLine($"  PassRate: {rate:P}");
+    Console.WriteLine($"  Passed: {Random.Shared.PassRate(items, rate).Select(n => $"{n}").JoinString(",")}");
+    Console.WriteLine();
+}
+
+Console.WriteLine($"Random Choice:");
+{
+    var options = new[]
+    {
+        OptionWeight.Create("A", 40),
+        OptionWeight.Create("B", 80),
+        OptionWeight.Create("C", 200),
+        OptionWeight.Create("D", 120),
+    };
+    Console.WriteLine($"  Options:");
+    foreach (var opt in options)
+    {
+        Console.WriteLine($"  .. {opt.Value} : weight {opt.Weight}");
+    }
+    var count = 10;
+    Console.WriteLine($"  Choice({count} times):");
+    for (var i = 0; i < count; i++)
+    {
+        var result = Random.Shared.Choice(options);
+        Console.WriteLine($"  .. {result}");
+    }
+}

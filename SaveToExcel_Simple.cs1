@@ -1,5 +1,5 @@
 #!/usr/bin/env -S dotnet run --file
-#:package Lestaly.General@0.114.0
+#:package Lestaly.General@0.116.0
 #:package Lestaly.Excel@0.101.0
 using Lestaly;
 
@@ -9,7 +9,7 @@ using Lestaly;
 var outFile = ThisSource.RelativeFile($"SaveToExcel_Simple_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
 Console.WriteLine("Search Directory");
 Console.Write(">");
-var searchDir = Console.ReadLine().CancelIfWhite().Unquote().CancelIfWhite().AsDirectoryInfo();
+var searchDir = Console.ReadLine().Unquote().CancelIfWhite().AsDirectoryInfo();
 searchDir
     .SelectFiles(c => new
     {
